@@ -2,6 +2,7 @@ module DnD.Data
     ( Character
     , Ability(..)
     , Abilities
+    , Skill(..)
     , Skills
     ) where
 
@@ -27,6 +28,26 @@ type alias Abilities =
     , wisdom : Int
     , charisma : Int
     }
+
+type Skill =
+      Athletics
+    | Acrobatics
+    | SleightOfHand
+    | Stealth
+    | Arcana
+    | History
+    | Investigation
+    | Nature
+    | Religion
+    | AnimalHandling
+    | Insight
+    | Medicine
+    | Perception
+    | Survival
+    | Deception
+    | Intimidation
+    | Performance
+    | Persuasion
 
 type alias Skills =
     { athletics : Bool

@@ -5,10 +5,14 @@ import Graphics.Element exposing (show)
 
 import DnD.Data as DnD
 import DnD.Ability as Ability
+import DnD.Skill as Skill
 
 main = show
     <| Random.generate
-        (Random.list 10 (Ability.check character DnD.Strength))
+        (Random.pair
+            (Skill.check character DnD.Acrobatics)
+            (Skill.check character DnD.Stealth)
+        )
         seed
 
 seed : Random.Seed

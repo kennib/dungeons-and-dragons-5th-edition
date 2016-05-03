@@ -7,16 +7,11 @@ import DnD.Data as DnD
 import DnD.Ability as Ability
 import DnD.Skill as Skill
 
-main = show
-    <| Random.generate
-        (Random.pair
-            (Skill.check character DnD.Acrobatics)
-            (Skill.check character DnD.Stealth)
-        )
-        seed
+import DnD.UI.Ability
 
-seed : Random.Seed
-seed = Random.initialSeed 0
+import StartApp.Simple exposing (start)
+
+main = start <| DnD.UI.Ability.widget character
 
 character : DnD.Character
 character =

@@ -8,10 +8,11 @@ import DnD.Ability as Ability
 import DnD.Skill as Skill
 
 import DnD.UI.Ability
+import DnD.UI.Player
 
 import StartApp.Simple exposing (start)
 
-main = start <| DnD.UI.Ability.widget character
+main = start <| DnD.UI.Player.widget character
 
 character : DnD.Character
 character =

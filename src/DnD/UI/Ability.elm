@@ -6,6 +6,7 @@ module DnD.UI.Ability
 import Signal exposing (Signal)
 
 import Html exposing (Html, fromElement)
+import Html.Events exposing (onClick)
 
 import StartApp.Simple as App
 
@@ -31,12 +32,12 @@ view address character =
     in
         Html.dl []
         <| List.concat
-        <| List.map2 viewModifier
+        <| List.map2 (viewModifier address)
             abilities
             modifiers
 
-viewModifier : Ability -> Int -> List Html
-viewModifier ability value =
+viewModifier : Signal.Address Action -> Ability -> Int -> List Html
+viewModifier address ability value =
     [ Html.dt []
         [ Html.text <| toString ability]
     , Html.dd []
@@ -46,6 +47,9 @@ viewModifier ability value =
               Html.text ""
         , Html.text <| toString value
         ]
+    , Html.button [onClick address <| Roll ability]
+        [ Html.text <| toString ability
+        , Html.text " Check"]
     ]
 
 update : Action -> Character -> Character

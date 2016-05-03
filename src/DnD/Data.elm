@@ -1,10 +1,27 @@
 module DnD.Data
-    ( Character
+    ( Die(..)
+    , DieRoll
+    , Character
     , Ability(..)
     , Abilities
     , Skill(..)
     , Skills
     ) where
+
+type Die =
+      D4
+    | D6
+    | D8
+    | D10
+    | D12
+    | D20
+    | D100
+
+type alias DieRoll =
+    { die : Die
+    , roll : Int
+    , modifiedRoll : Int
+    }
 
 type alias Character =
     { level : Int

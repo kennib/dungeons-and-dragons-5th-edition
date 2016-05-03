@@ -1,7 +1,7 @@
 {
     "version": "0.0.0",
     "summary": "Tools for playing Dungeons and Dragons 5th Edition",
-    "repository": "https://gitlab.com/kenni/dungeons-and-dragons-5th-edition.git",
+    "repository": "https://github.com/kennib/dungeons-and-dragons-5th-edition.git",
     "license": "BSD3",
     "source-directories": [
         "src"

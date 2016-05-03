@@ -1,10 +1,18 @@
 module DnD where
 
+import Random
 import Graphics.Element exposing (show)
 
 import DnD.Data as DnD
+import DnD.Ability as Ability
 
-main = show character
+main = show
+    <| Random.generate
+        (Random.list 10 (Ability.check character DnD.Strength))
+        seed
+
+seed : Random.Seed
+seed = Random.initialSeed 0
 
 character : DnD.Character
 character =

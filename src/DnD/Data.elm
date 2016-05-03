@@ -1,5 +1,6 @@
 module DnD.Data
     ( Character
+    , Ability(..)
     , Abilities
     , Skills
     ) where
@@ -9,6 +10,14 @@ type alias Character =
     , abilities : Abilities
     , skills : Skills
     }
+
+type Ability =
+      Strength
+    | Dexterity
+    | Constitution
+    | Intelligence
+    | Wisdom
+    | Charisma
 
 type alias Abilities =
     { strength : Int

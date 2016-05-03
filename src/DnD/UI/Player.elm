@@ -7,15 +7,18 @@ import Signal exposing (Signal)
 
 import Html exposing (Html, fromElement)
 import Html.Events exposing (onClick)
+import Html.Attributes exposing (style)
 
 import StartApp.Simple as App
 
 import DnD.Data exposing (..)
 import DnD.Dice as Dice
 import DnD.Ability as Ability
+import DnD.Skill as Skill
 
 --import DnD.UI.Dice as DiceUI
 import DnD.UI.Ability as AbilityUI
+import DnD.UI.Skill as SkillUI
 
 type alias Model =
     { character : Character
@@ -26,6 +29,7 @@ type alias Model =
 type Action =
       NoAction
     | AbilityAction AbilityUI.Action
+    | SkillAction SkillUI.Action
 
 widget : Character -> App.Config Model Action
 widget character =
@@ -46,9 +50,12 @@ view address model =
     let
         abilityView = (AbilityUI.widget model.character).view
         abilityAddress = Signal.forwardTo address AbilityAction
+        skillView = (SkillUI.widget model.character).view
+        skillAddress = Signal.forwardTo address SkillAction
     in
-        Html.div []
+        Html.div [style [("display", "flex"), ("flex-direction", "row")]]
         [ abilityView abilityAddress model.character
+        , skillView skillAddress model.character
         , Html.text <| toString model.dieRolls
         ]
 
@@ -61,6 +68,17 @@ update action model =
                 (roll, seed) = Random.generate Dice.d20 model.seed
                 (abilityRoll, seed') = Random.generate abilityCheck model.seed
                 abilityCheck = Ability.check model.character ability
+            in
+                { model |
+                  dieRolls = [dieRoll]
+                , seed = seed
+                }
+        SkillAction (SkillUI.Roll skill) ->
+            let
+                dieRoll = {die = D20, roll = roll, modifiedRoll = skillRoll}
+                (roll, seed) = Random.generate Dice.d20 model.seed
+                (skillRoll, seed') = Random.generate skillCheck model.seed
+                skillCheck = Skill.check model.character skill
             in
                 { model |
                   dieRolls = [dieRoll]

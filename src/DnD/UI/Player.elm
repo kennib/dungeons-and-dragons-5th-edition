@@ -16,9 +16,9 @@ import DnD.Dice as Dice
 import DnD.Ability as Ability
 import DnD.Skill as Skill
 
---import DnD.UI.Dice as DiceUI
 import DnD.UI.Ability as AbilityUI
 import DnD.UI.Skill as SkillUI
+import DnD.UI.Dice as DiceUI
 
 type alias Model =
     { character : Character
@@ -30,6 +30,7 @@ type Action =
       NoAction
     | AbilityAction AbilityUI.Action
     | SkillAction SkillUI.Action
+    | DiceAction DiceUI.Action
 
 widget : Character -> App.Config Model Action
 widget character =
@@ -52,11 +53,13 @@ view address model =
         abilityAddress = Signal.forwardTo address AbilityAction
         skillView = (SkillUI.widget model.character).view
         skillAddress = Signal.forwardTo address SkillAction
+        diceView = (DiceUI.widget model.dieRolls).view
+        diceAddress = Signal.forwardTo address DiceAction
     in
         Html.div [style [("display", "flex"), ("flex-direction", "row")]]
         [ abilityView abilityAddress model.character
         , skillView skillAddress model.character
-        , Html.text <| toString model.dieRolls
+        , diceView diceAddress model.dieRolls
         ]
 
 update : Action -> Model -> Model

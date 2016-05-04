@@ -39,10 +39,18 @@ viewDieRoll dieRoll =
             , Html.text <| toString dieRoll.die
             ]
         , Html.p []
-            [ Html.text "Result of "
+            [ Html.text <| rollType dieRoll.rollType
+            , Html.text " of "
             , Html.text <| toString dieRoll.modifiedRoll
             ]
         ]
+
+rollType : RollType -> String
+rollType roll =
+    case roll of
+        AbilityCheck ability -> toString ability ++ " Check"
+        SkillCheck skill     -> toString skill ++ " Check"
+        OtherRoll            -> "Roll"
 
 update : Action -> List DieRoll -> List DieRoll
 update action dieRolls =

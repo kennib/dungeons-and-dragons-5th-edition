@@ -1,5 +1,6 @@
 module DnD.Data
-    ( Die(..)
+    ( RollType(..)
+    , Die(..)
     , DieRoll
     , Character
     , Ability(..)
@@ -7,6 +8,11 @@ module DnD.Data
     , Skill(..)
     , Skills
     ) where
+
+type RollType =
+      AbilityCheck Ability
+    | SkillCheck Skill
+    | OtherRoll
 
 type Die =
       D4
@@ -18,7 +24,8 @@ type Die =
     | D100
 
 type alias DieRoll =
-    { die : Die
+    { rollType : RollType
+    , die : Die
     , roll : Int
     , modifiedRoll : Int
     }

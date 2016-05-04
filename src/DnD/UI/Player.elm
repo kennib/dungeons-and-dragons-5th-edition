@@ -67,7 +67,7 @@ update action model =
     case action of
         AbilityAction (AbilityUI.Roll ability) ->
             let
-                dieRoll = {die = D20, roll = roll, modifiedRoll = abilityRoll}
+                dieRoll = {rollType = AbilityCheck ability, die = D20, roll = roll, modifiedRoll = abilityRoll}
                 (roll, seed) = Random.generate Dice.d20 model.seed
                 (abilityRoll, seed') = Random.generate abilityCheck model.seed
                 abilityCheck = Ability.check model.character ability
@@ -78,7 +78,7 @@ update action model =
                 }
         SkillAction (SkillUI.Roll skill) ->
             let
-                dieRoll = {die = D20, roll = roll, modifiedRoll = skillRoll}
+                dieRoll = {rollType = SkillCheck skill, die = D20, roll = roll, modifiedRoll = skillRoll}
                 (roll, seed) = Random.generate Dice.d20 model.seed
                 (skillRoll, seed') = Random.generate skillCheck model.seed
                 skillCheck = Skill.check model.character skill
